@@ -1,0 +1,47 @@
+{
+    "name": "Ubuntu",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "hostRequirements": {
+      "cpus": 2
+    },
+    "mounts": [
+      "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+    ],
+    "containerEnv": {
+      "CONDA_ENV_NAME": "conda_env"
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "prompt-flow.prompt-flow",
+          "ms-python.python",
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "python.terminal.activateEnvironment": true,
+          "python.condaPath": "/opt/conda/bin/conda",
+          "python.defaultInterpreterPath": "/opt/conda/envs/${containerEnv:CONDA_ENV_NAME}",
+          "python.editor.formatOnSave": true,
+          "python.editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          },
+          "notebook.formatOnSave.enabled": true,
+          "notebook.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        }
+      }
+    },
+    "features": {
+      "ghcr.io/devcontainers/features/azure-cli": {
+        "version": "latest",
+        "extensions": "ml"
+      },
+      "ghcr.io/devcontainers/features/git": "os-provided",
+      "ghcr.io/devcontainers/features/github-cli": "latest",
+      "ghcr.io/devcontainers/features/node": "latest",
+      "ghcr.io/devcontainers/features/conda": "latest"
+    },
+    "onCreateCommand": "/bin/bash .devcontainer/post-create.sh",
+    "postStartCommand": "/bin/bash .devcontainer/post-start.sh"
+  }
